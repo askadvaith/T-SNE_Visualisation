@@ -54,7 +54,14 @@ html, body {
   background: linear-gradient(135deg, #2c3e50, #3498db);
   color: white;
   padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-content {
   text-align: center;
+  flex: 1;
 }
 
 .app-header h1 {
@@ -66,6 +73,45 @@ html, body {
 .app-header .subtitle {
   font-size: 0.9rem;
   opacity: 0.9;
+}
+
+/* Social Links */
+.social-links {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.social-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.social-btn.github {
+  background-color: #333;
+}
+
+.social-btn.github:hover {
+  background-color: #24292e;
+}
+
+.social-btn.linkedin {
+  background-color: #0077b5;
+}
+
+.social-btn.linkedin:hover {
+  background-color: #005885;
 }
 
 /* Main Layout */
@@ -1204,7 +1250,55 @@ html, body {
   color: var(--text-muted);
 }
 
-/* Intro Visual */
+/* Intro Explanation (replaces intro-visual diagram) */
+.intro-explanation {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.intro-explanation h2 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--accent-blue);
+  padding-bottom: 0.5rem;
+}
+
+.intro-explanation h3 {
+  font-size: 1.1rem;
+  color: var(--accent-blue);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.intro-explanation p {
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
+}
+
+.intro-explanation ul {
+  margin-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.intro-explanation li {
+  margin-bottom: 0.35rem;
+  line-height: 1.6;
+}
+
+.intro-explanation strong {
+  color: var(--accent-purple);
+}
+
+.intro-explanation em {
+  color: var(--accent-green);
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* Intro Visual (kept for backwards compatibility) */
 .intro-visual {
   padding: 2rem;
 }

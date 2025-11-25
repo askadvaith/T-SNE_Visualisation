@@ -441,49 +441,34 @@ class TSNEVisualizer {
     const data = snapshot.data;
     
     vizContainer.innerHTML = `
-      <div class="intro-visual">
-        <div class="intro-diagram">
-          <div class="dim-box dim-high">
-            <div class="dim-label">3D Space</div>
-            <div class="dim-points">
-              ${Array(8).fill('<span class="dot"></span>').join('')}
-            </div>
-          </div>
-          <div class="arrow-container">
-            <div class="arrow">→</div>
-            <div class="arrow-label">t-SNE</div>
-          </div>
-          <div class="dim-box dim-low">
-            <div class="dim-label">${this.currentMode === '3d-1d' ? '1D' : '2D'} Space</div>
-            <div class="dim-points">
-              ${Array(8).fill('<span class="dot"></span>').join('')}
-            </div>
-          </div>
-        </div>
+      <div class="intro-explanation">
+        <h2>What is t-SNE?</h2>
+        <p><strong>t-Distributed Stochastic neighbour Embedding (t-SNE)</strong> is a technique for dimensionality reduction that preserves local structure. You can find a beautiful and succinct explanation of the theory behind it here: <a href="https://www.youtube.com/watch?v=NEaUSP4YerM" target="_blank" rel="noopener noreferrer">StatQuest t-SNE</a></p>
+        
+        <h3>The Goal</h3>
+        <p>We have <strong>${data.n} points</strong> in <strong>${data.inputDim}D space</strong>. We want to place them in <strong>${data.targetDim}D space</strong> such that:</p>
+        <ul>
+          <li>Points that are <em>close</em> in high-D stay <em>close</em> in low-D</li>
+          <li>Points that are <em>far</em> in high-D stay <em>far</em> in low-D</li>
+        </ul>
+        
+        <h3>Key Idea</h3>
+        <p>t-SNE converts <strong>distances</strong> into <strong>probabilities</strong>:</p>
+        <ul>
+          <li>High probability = points are neighbours</li>
+          <li>Low probability = points are distant</li>
+        </ul>
+        <p>Then it tries to match these probabilities between high-D and low-D.</p>
+        
+        <h3>Perplexity: ${data.perplexity}</h3>
+        <p>Perplexity roughly represents "number of effective neighbours". Higher values consider more neighbours.</p>
       </div>
     `;
     
     explanationContainer.innerHTML = `
-      <h2>What is t-SNE?</h2>
-      <p><strong>t-Distributed Stochastic Neighbor Embedding (t-SNE)</strong> is a technique for dimensionality reduction that preserves local structure.</p>
-      
-      <h3>The Goal</h3>
-      <p>We have <strong>${data.n} points</strong> in <strong>${data.inputDim}D space</strong>. We want to place them in <strong>${data.targetDim}D space</strong> such that:</p>
-      <ul>
-        <li>Points that are <em>close</em> in high-D stay <em>close</em> in low-D</li>
-        <li>Points that are <em>far</em> in high-D stay <em>far</em> in low-D</li>
-      </ul>
-      
-      <h3>Key Idea</h3>
-      <p>t-SNE converts <strong>distances</strong> into <strong>probabilities</strong>:</p>
-      <ul>
-        <li>High probability = points are neighbors</li>
-        <li>Low probability = points are distant</li>
-      </ul>
-      <p>Then it tries to match these probabilities between high-D and low-D.</p>
-      
-      <h3>Perplexity: ${data.perplexity}</h3>
-      <p>Perplexity roughly represents "number of effective neighbors". Higher values consider more neighbors.</p>
+      <div class="tip-box">
+        <strong>💡 Getting Started:</strong> Use the <strong>Next →</strong> button or press the right arrow key to walk through each step of the t-SNE algorithm. You can also click on any step in the right panel to jump directly to it.
+      </div>
     `;
     
     this.formulaDisplay.showFormula('overview', {});
@@ -619,7 +604,7 @@ class TSNEVisualizer {
     
     document.getElementById('distance-from-point').innerHTML = `
       <div class="distance-list">
-        <h5>Nearest Neighbors</h5>
+        <h5>Nearest neighbours</h5>
         ${nearest.map((d, rank) => `
           <div class="distance-item">
             <span class="rank">#${rank + 1}</span>
@@ -665,7 +650,7 @@ class TSNEVisualizer {
       <h3>Single Point Analysis: Point ${i}</h3>
       <p>Looking at Point ${i}, we found:</p>
       <ul>
-        <li><strong>Nearest neighbor:</strong> Point ${nearest[0].j} at distance ${nearest[0].distance.toFixed(3)}</li>
+        <li><strong>Nearest neighbour:</strong> Point ${nearest[0].j} at distance ${nearest[0].distance.toFixed(3)}</li>
         <li><strong>Farthest point:</strong> Point ${farthest[0].j} at distance ${farthest[0].distance.toFixed(3)}</li>
       </ul>
       
@@ -750,10 +735,10 @@ class TSNEVisualizer {
       <h2>Step 2: Find σ Values</h2>
       
       <h3>Why σ Matters</h3>
-      <p>Each point needs its own σ (sigma) that controls how it "sees" its neighbors. Points in dense regions need smaller σ, while isolated points need larger σ.</p>
+      <p>Each point needs its own σ (sigma) that controls how it "sees" its neighbours. Points in dense regions need smaller σ, while isolated points need larger σ.</p>
       
       <h3>The Goal: Match Perplexity</h3>
-      <p>We want each point to have a specific <strong>perplexity = ${data.perplexity}</strong>. Perplexity roughly means "effective number of neighbors".</p>
+      <p>We want each point to have a specific <strong>perplexity = ${data.perplexity}</strong>. Perplexity roughly means "effective number of neighbours".</p>
       
       <h3>Binary Search Process</h3>
       <p>For each point, we:</p>
@@ -769,7 +754,7 @@ class TSNEVisualizer {
       <p>After binary search, Point ${i} has <strong>σ = ${data.sigmas[i].toFixed(4)}</strong></p>
       
       <h3>Cluster Insight</h3>
-      <p>Points in dense clusters typically have <strong>smaller σ</strong> because they have many nearby neighbors. Isolated points need <strong>larger σ</strong> to "reach" their neighbors.</p>
+      <p>Points in dense clusters typically have <strong>smaller σ</strong> because they have many nearby neighbours. Isolated points need <strong>larger σ</strong> to "reach" their neighbours.</p>
     `;
     
     this.formulaDisplay.showFormula('perplexity', { perplexity: data.perplexity });
@@ -836,13 +821,13 @@ class TSNEVisualizer {
       <h2>Step 3: Compute Conditional Probabilities</h2>
       
       <h3>Converting Distances to Probabilities</h3>
-      <p>We use a Gaussian kernel centered on each point. The probability P(j|i) tells us "if we randomly pick a neighbor of point i, what's the chance we pick point j?"</p>
+      <p>We use a Gaussian kernel centered on each point. The probability P(j|i) tells us "if we randomly pick a neighbour of point i, what's the chance we pick point j?"</p>
       
       <h3>The Gaussian Curve</h3>
       <p>Points closer to i get higher probabilities. The curve's width is controlled by σ<sub>i</sub>.</p>
       
-      <h3>Point ${i}'s Neighborhood</h3>
-      <p>The most likely neighbors of Point ${i} are:</p>
+      <h3>Point ${i}'s Neighbourhood</h3>
+      <p>The most likely neighbours of Point ${i} are:</p>
       <ol>
         ${topProbs.map(d => `
           <li><strong style="color: ${getLabelColor(d.label)}">Point ${d.j}</strong>: P = ${(d.p * 100).toFixed(2)}%</li>
@@ -850,7 +835,7 @@ class TSNEVisualizer {
       </ol>
       
       <h3>Matrix Interpretation</h3>
-      <p>The heatmap shows P(j|i) for all pairs. Bright colors = high probability = likely neighbors. Row ${i} is highlighted.</p>
+      <p>The heatmap shows P(j|i) for all pairs. Bright colors = high probability = likely neighbours. Row ${i} is highlighted.</p>
       
       <div class="tip-box">
         <strong>Note:</strong> This matrix is NOT symmetric! P(j|i) ≠ P(i|j) in general.
@@ -932,7 +917,7 @@ class TSNEVisualizer {
       <h3>Why Symmetrize?</h3>
       <ul>
         <li>Makes the optimization simpler</li>
-        <li>If i is a neighbor of j, then j should be a neighbor of i</li>
+        <li>If i is a neighbour of j, then j should be a neighbour of i</li>
         <li>Produces nicer gradients</li>
       </ul>
     `;
@@ -978,7 +963,7 @@ class TSNEVisualizer {
       <p>We multiply all P values by <strong>${data.exaggerationFactor}</strong> during the first 100 iterations.</p>
       
       <h3>Why Do This?</h3>
-      <p>Early exaggeration creates <strong>stronger attractive forces</strong> between neighbors. This helps:</p>
+      <p>Early exaggeration creates <strong>stronger attractive forces</strong> between neighbours. This helps:</p>
       <ul>
         <li>Clusters form more quickly and clearly</li>
         <li>Points that should be together "find each other" early</li>
@@ -986,7 +971,7 @@ class TSNEVisualizer {
       </ul>
       
       <h3>Visual Effect</h3>
-      <p>Compare the two heatmaps - the exaggerated version has much brighter (higher) values. This means neighbors pull on each other ${data.exaggerationFactor}× harder initially.</p>
+      <p>Compare the two heatmaps - the exaggerated version has much brighter (higher) values. This means neighbours pull on each other ${data.exaggerationFactor}× harder initially.</p>
       
       <h3>Later...</h3>
       <p>After 100 iterations, we'll remove the exaggeration and let the embedding fine-tune with normal forces.</p>
@@ -1149,7 +1134,7 @@ class TSNEVisualizer {
       <p>The arrows show the net force on each point. Longer arrows = stronger gradients = points need to move more.</p>
       
       <div class="tip-box">
-        <strong>Key Insight:</strong> Points that are neighbors in 3D (high P<sub>ij</sub>) but far apart in 2D (low Q<sub>ij</sub>) experience strong attractive forces.
+        <strong>Key Insight:</strong> Points that are neighbours in 3D (high P<sub>ij</sub>) but far apart in 2D (low Q<sub>ij</sub>) experience strong attractive forces.
       </div>
     `;
     
