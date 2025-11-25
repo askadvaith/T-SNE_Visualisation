@@ -1,0 +1,19 @@
+{
+  "name": "tsne-visualizer",
+  "version": "1.0.0",
+  "description": "Interactive step-by-step t-SNE visualization for learning",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^7.2.4"
+  },
+  "dependencies": {
+    "d3": "^7.8.5",
+    "katex": "^0.16.9",
+    "three": "^0.181.2"
+  }
+}
