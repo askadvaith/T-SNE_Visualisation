@@ -443,7 +443,7 @@ class TSNEVisualizer {
     vizContainer.innerHTML = `
       <div class="intro-explanation">
         <h2>What is t-SNE?</h2>
-        <p><strong>t-Distributed Stochastic neighbour Embedding (t-SNE)</strong> is a technique for dimensionality reduction that preserves local structure. You can find a beautiful and succinct explanation of the theory behind it here: <a href="https://www.youtube.com/watch?v=NEaUSP4YerM" target="_blank" rel="noopener noreferrer">StatQuest t-SNE</a></p>
+        <p><strong>t-Distributed Stochastic Neighbour Embedding (t-SNE)</strong> is a technique for dimensionality reduction that preserves local structure. You can find a beautiful and succinct explanation of the theory behind it here: <a href="https://www.youtube.com/watch?v=NEaUSP4YerM" target="_blank" rel="noopener noreferrer">StatQuest t-SNE</a></p>
         
         <h3>The Goal</h3>
         <p>We have <strong>${data.n} points</strong> in <strong>${data.inputDim}D space</strong>. We want to place them in <strong>${data.targetDim}D space</strong> such that:</p>
