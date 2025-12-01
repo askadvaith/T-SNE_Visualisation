@@ -19,6 +19,13 @@ import { GradientField, CostChart } from './visualizations/gradient-field.js';
 // Formula display
 import { FormulaDisplay } from './ui/formula-display.js';
 
+// Vercel Analytics
+import { inject } from '@vercel/analytics';
+import { injectSpeedInsights } from '@vercel/speed-insights';
+ 
+injectSpeedInsights();
+inject();
+
 /**
  * Main Application Class
  */
